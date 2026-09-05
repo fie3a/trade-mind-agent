@@ -4,7 +4,7 @@ import telebot
 import urllib3
 urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 
-TOKEN = "8906010610:AAG1nmKsbtih97WhlG2Mc--1fdvIftHQ8Us"
+TOKEN = "YOUR_TELEGRAM_BOT_TOKEN_HERE"
 bot = telebot.TeleBot(TOKEN)
 
 @bot.message_handler(commands=['start'])
