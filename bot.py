@@ -88,3 +88,63 @@ def main():
 
 if __name__ == "__main__":
     main()
+import os
+import telebot
+from dotenv import load_dotenv
+
+# Load configuration from .env file
+load_dotenv()
+TOKEN = os.getenv("TELEGRAM_BOT_TOKEN")
+bot = telebot.TeleBot(TOKEN)
+
+# 1. Handler for /start command
+@bot.message_handler(commands=['start'])
+def send_welcome(message):
+    welcome_text = (
+        "🤖 *Welcome to Trade Mind Agent!*\n\n"
+        "Your intelligent assistant for market analysis & crypto DCA simulation.\n\n"
+        "📋 *Main Menu:*\n"
+        "🔍 /analyze [COIN_NAME] - Technical analysis, momentum, entry, TP/SL\n"
+        "📊 /dca - Dollar-Cost Averaging simulation calculator\n"
+        "💡 Type any command above to get started!"
+    )
+    bot.reply_to(message, welcome_text, parse_mode="Markdown")
+
+# 2. Handler for Coin Analysis Feature
+@bot.message_handler(commands=['analyze', 'analisis'])
+def handle_analysis(message):
+    args = message.text.split()
+    if len(args) < 2:
+        bot.reply_to(message, "⚠️ Incorrect format. Example usage: /analyze BTC", parse_mode="Markdown")
+        return
+    
+    coin = args[1].upper()
+    
+    # [You can integrate real market API logic here]
+    analysis_result = (
+        f"🔍 *Technical Analysis Report: {coin}/USDT*\n\n"
+        f"📈 *Market Trend:* Bullish Moderate\n"
+        f"⚡ *Momentum:* Accumulation / Volume increasing\n"
+        f"🎯 *Suggested Entry:* Near support zones\n"
+        f"🟢 *Take Profit (TP):* Resistance levels 1 & 2\n"
+        f"🔴 *Stop Loss (SL):* Below minor support\n\n"
+        f"_Disclaimer: Always manage your risk wisely!_"
+    )
+    bot.reply_to(message, analysis_result, parse_mode="Markdown")
+
+# 3. Handler for DCA Simulation Feature
+@bot.message_handler(commands=['dca'])
+def handle_dca(message):
+    dca_info = (
+        "📊 *DCA Simulation Calculator*\n\n"
+        "This feature helps you calculate regular crypto accumulation.\n"
+        "*(Integration logic from your previous DCA project goes here)*\n\n"
+        "Please use the format: /dca [amount_usd] [frequency]\n"
+        "Example: /dca 50 weekly"
+    )
+    bot.reply_to(message, dca_info, parse_mode="Markdown")
+
+# Run the bot
+if __name__ == "__main__":
+    print("[INFO] Trade Mind Agent (Analysis & DCA) is running...")
+    bot.infinity_polling()
