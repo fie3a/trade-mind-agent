@@ -9,7 +9,9 @@ Built with Python and powered by real-time market data APIs, this bot helps trad
 ## 🚀 Key Features
 
 * **Real-Time Price & Analysis (/analyze):** Fetches live coin prices from market data providers and instantly calculates recommended Entry Zones, Take Profit (TP), and Stop Loss (SL) targets.
-* **Advanced DCA Simulation (/dca):** Simulates routine investments with customizable intervals (daily, weekly, monthly) and specified duration periods to calculate total capital and estimated asset acquisiTerminal Logging & Monitoring:oring:** Mirrors bot activity and outputs detailed real-time logs directly to the local terminal/CMD for easy tracRobust Network Stability:ility:** Built-in connection error handling, custom timeouts, and secure request verification for smooth performance.
+* **Advanced DCA Simulation (/dca):** Simulates routine investments with customizable intervals (daily, weekly, monthly) and specified duration periods to calculate total capital and estimated asset acquisition.
+* **Terminal Logging & Monitoring:** Mirrors bot activity and outputs detailed real-time logs directly to the local terminal/CMD for easy tracking.
+* **Robust Network Stability:** Built-in connection error handling, custom timeouts, and secure request verification for smooth performance.
 
 ---
 
