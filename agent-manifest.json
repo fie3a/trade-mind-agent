@@ -1,0 +1,14 @@
+{
+  "name": "trading-mind-agent",
+  "version": "1.0.0",
+  "description": "Autonomous AI trading intelligence, sentiment analysis, volatility scoring, integrated DCA simulation, and report export agent.",
+  "track": "Track A",
+  "entrypoint": "main.py",
+  "capabilities": [
+    "AI market sentiment evaluation",
+    "Volatility spread and risk assessment",
+    "Integrated DCA accumulation simulation",
+    "Report export to JSON logs",
+    "Interactive continuous intelligence loop"
+  ]
+}
