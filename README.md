@@ -1,59 +1,30 @@
-# Trade Mind Agent 🤖📈
+# 🧠 Trading Mind Agent (AI Market Intelligence & DCA)
 
-Trade Mind Agent is an intelligent, lightweight Telegram bot designed for real-time cryptocurrency price tracking, automated technical analysis (with Entry, TP, and SL targets), and advanced Dollar-Cost Averaging (DCA) simulation. 
-
-Built with Python and powered by real-time market data APIs, this bot helps traders quickly simulate investment strategies and track momentum directly from their Telegram chat.
+An autonomous AI sentiment, volatility scoring, and integrated DCA simulation agent designed for the Agent OS ecosystem (Track A).
 
 ---
 
-## 🚀 Key Features
+## 🌟 Key Features
 
-* **Real-Time Price & Analysis (/analyze):** Fetches live coin prices from market data providers and instantly calculates recommended Entry Zones, Take Profit (TP), and Stop Loss (SL) targets.
-* **Advanced DCA Simulation (/dca):** Simulates routine investments with customizable intervals (daily, weekly, monthly) and specified duration periods to calculate total capital and estimated asset acquisition.
-* **Terminal Logging & Monitoring:** Mirrors bot activity and outputs detailed real-time logs directly to the local terminal/CMD for easy tracking.
-* **Robust Network Stability:** Built-in connection error handling, custom timeouts, and secure request verification for smooth performance.
-
----
-
-## 🛠️ Tech Stack
-
-* Language: Python 3.x
-* Libraries: pyTelegramBotAPI, requests, urllib3
-* API: CoinGecko Market API
+* Real-time Market Telemetry: Fetches 24-hour rolling ticker statistics directly from Binance public feeds with built-in endpoint failovers (api.binance.com & binance.vision).
+* AI Sentiment & Volatility Evaluation: Automatically categorizes market conditions into bullish, bearish, or range-bound phases alongside a 24-hour volatility spread score.
+* Integrated DCA Simulation: Seamlessly transitions from market intelligence analysis into structured Dollar Cost Averaging (DCA) projections (Daily, Weekly, or Monthly).
+* Report Export Capability: Exports complete analysis logs and simulation data into structured JSON files for audit and record-keeping.
+* Interactive Terminal Loop: Built with continuous operational intelligence briefings and an easy exit command (exit).
 
 ---
 
-## 📋 Commands List
+## 🚀 Quick Start
 
-| Command | Description | Example |
-| :--- | :--- | :--- |
-| /start | Start the bot and view greeting menu | /start |
-| /analyze | Run technical analysis and check live price | /analyze btc |
-| /dca | Run advanced DCA simulation with intervals | /dca btc 50 weekly 12 |
-
----
-
-## ⚙️ Installation & Setup (Local)
-1. **Clone the repository:**
+1. Clone the repository to your local machine:
    ```bash
-   git clone https://github.com/fie3a/trade-mind-agent.git
-   cd trade-mind-agent
-```
-```
-2. Install required dependencies :
-   ```bash
-   pip install pyTelegramBotAPI requests urllib3
+   git clone https://github.com/fie3a/trading-mind-agent.git
+   cd trading-mind-agent
    ```
-3. Configure your Bot Token:
-Open bot.py and replace the TOKEN variable with your unique Telegram Bot Token from @BotFather.
-
-4. Run the bot
+2. Ensure Python 3 is installed on your system.
+3. Run the intelligence agent:
    ```bash
-   python bot.py
+   python main.py
    ```
-## 📄 License
-
-© 2026 Trade Mind Agent. All rights reserved.
-
-This project is developed for educational and portfolio demonstration purposes.
-
+4. Input your target cryptocurrency symbol (e.g., BTC, ETH) and follow the interactive prompts.
+   
