@@ -1,4 +1,5 @@
 import urllib.request
+import urllib.parse
 import json
 import time
 import sys
@@ -7,6 +8,7 @@ import datetime
 def fetch_binance_ticker(symbol):
     endpoints = [
         f"https://api.binance.com/api/v3/ticker/24hr?symbol={symbol}",
+        f"https://api1.binance.com/api/v3/ticker/24hr?symbol={symbol}",
         f"https://data-api.binance.vision/api/v3/ticker/24hr?symbol={symbol}"
     ]
     
@@ -20,25 +22,43 @@ def fetch_binance_ticker(symbol):
             
     return None
 
+def send_telegram_alert(bot_token, chat_id, message):
+    """Sends analysis report directly to Telegram chat using pure urllib."""
+    api_url = f"https://api.telegram.org/bot{bot_token}/sendMessage"
+    payload = {
+        "chat_id": chat_id,
+        "text": message,
+        "parse_mode": "Markdown"
+    }
+    try:
+        data = urllib.parse.urlencode(payload).encode('utf-8')
+        req = urllib.request.Request(api_url, data=data, method='POST')
+        with urllib.request.urlopen(req, timeout=5) as response:
+            res_json = json.loads(response.read().decode())
+            return res_json.get("ok", False)
+    except Exception as e:
+        print(f"[!] Telegram Alert Failed: {e}")
+        return False
+
 def run_trading_mind_agent():
     print("==================================================")
-    print("  TRADING MIND AGENT (AI Intelligence & Advanced DCA)")
+    print("  TRADING MIND AGENT (AI Intelligence & Telegram Dispatcher)")
     print("==================================================")
     print("[+] Initializing Advanced Neural Sentiment & Risk Core...")
     time.sleep(1)
     
-    print("\n[*] Instructions:")
-    print("    > Analyze asset intelligence, volatility metrics, Entry/TP/SL, and DCA.")
-    print("    > Type 'exit' anytime to close the session.")
+    print("\n[INFO] Instructions:")
+    print("    - Analyze asset intelligence, volatility metrics, Entry/TP/SL, and DCA.")
+    print("    - Type 'exit' anytime to close the session.")
     
     while True:
         print("-" * 50)
         coin_input = input("Enter asset to analyze (e.g., BTC, ETH) [or type 'exit']: ").strip()
         
         if coin_input.lower() == 'exit':
-            print("\n[+] Shutting down Trading Mind neural link safely...")
-            time.sleep(1)
-            print("> Agent session terminated. Stay safe in the market!")
+           # print("\n[+] Shutting down Trading Mind neural link safely...")
+           # time.sleep(1)
+            print("* Agent session terminated. Stay safe in the market!")
             break
             
         if not coin_input:
@@ -64,21 +84,21 @@ def run_trading_mind_agent():
             
             # AI Sentiment & Strategic Bias
             if price_change > 3.0 and price_range_pct > 5.0:
-                sentiment = "High Momentum Bullish (Strong Breakout)"
+                sentiment = "[BULLISH] High Momentum (Strong Breakout)"
                 risk_score = "High (FOMO risk, watch for sharp pullbacks)"
                 action_bias = "Scale in cautiously or wait for a retest of support."
                 entry_zone = f"${price * 0.99:,.2f} - ${price:,.2f}"
                 tp_zone = f"${price * 1.05:,.2f} - ${price * 1.08:,.2f}"
                 sl_zone = f"${price * 0.96:,.2f}"
             elif price_change < -3.0:
-                sentiment = "Bearish Correction / Dip Opportunity"
+                sentiment = "[BEARISH] Correction / Dip Opportunity"
                 risk_score = "Moderate-High (Volatility active)"
                 action_bias = "Prime zone for phased DCA accumulation."
                 entry_zone = f"${price * 0.98:,.2f} - ${price * 0.995:,.2f}"
                 tp_zone = f"${price * 1.04:,.2f} - ${price * 1.06:,.2f}"
                 sl_zone = f"${price * 0.94:,.2f}"
             else:
-                sentiment = "Neutral / Range-Bound Accumulation"
+                sentiment = "[NEUTRAL] Range-Bound Accumulation"
                 risk_score = "Low (Stable market structure)"
                 action_bias = "Ideal setup for structured DCA scheduling."
                 entry_zone = f"${low_24h:,.2f} - ${price:,.2f}"
@@ -87,7 +107,7 @@ def run_trading_mind_agent():
             
             time.sleep(1)
             print(f"\n--------------------------------------------------")
-            print(f"   TRADING MIND INTELLIGENCE REPORT: {symbol}")
+            print(f"  TRADING MIND INTELLIGENCE REPORT: {symbol}")
             print(f"--------------------------------------------------")
             print(f"{'Current Price':<22} : ${price:,.2f}")
             print(f"{'24h Price Change':<22} : {price_change:+.2f}%")
@@ -109,22 +129,22 @@ def run_trading_mind_agent():
             
             dca_results = None
             if run_dca_sim == 'y':
-                print("\n* AI Suggestion: For stable accumulation, allocate 5-10% of your portfolio per session on a Weekly interval during consolidation phases.")
+                print("\n> AI Suggestion: For stable accumulation, allocate 5-10% of your portfolio per session on a Weekly interval during consolidation phases.")
                 
                 # Validation Loop for Amount
                 while True:
                     amount_input = input("Enter amount per DCA session in USD (Required): ").strip()
                     if not amount_input:
-                        print("⚠️ Error: Field must be filled! Please enter a valid amount.")
+                        print("[!] Error: Field must be filled! Please enter a valid amount.")
                         continue
                     try:
                         amount = float(amount_input)
                         if amount <= 0:
-                            print("⚠️ Error: Amount must be greater than 0.")
+                            print("[!] Error: Amount must be greater than 0.")
                             continue
                         break
                     except ValueError:
-                        print("⚠️ Error: Invalid number format. Please enter digits only.")
+                        print("[!] Error: Invalid number format. Please enter digits only.")
 
                 # Validation Loop for Interval
                 while True:
@@ -134,7 +154,7 @@ def run_trading_mind_agent():
                     print("  3. Monthly")
                     interval_choice = input("Enter choice 1/2/3 (Required): ").strip()
                     if not interval_choice:
-                        print("⚠️ Error: Field must be filled! Please choose an interval.")
+                        print("[!] Error: Field must be filled! Please choose an interval.")
                         continue
                     if interval_choice in ['1', '2', '3']:
                         if interval_choice == '1':
@@ -145,22 +165,22 @@ def run_trading_mind_agent():
                             interval_str = "Weekly"
                         break
                     else:
-                        print("⚠️ Error: Please choose option 1, 2, or 3.")
+                        print("[!] Error: Please choose option 1, 2, or 3.")
 
                 # Validation Loop for Duration Cycles
                 while True:
                     duration_input = input(f"Enter total {interval_str.lower()} execution cycles, e.g., 4 or 8 (Required): ").strip()
                     if not duration_input:
-                        print("⚠️ Error: Field must be filled! Please enter total cycles.")
+                        print("[!] Error: Field must be filled! Please enter total cycles.")
                         continue
                     try:
                         duration_cycles = int(duration_input)
                         if duration_cycles <= 0:
-                            print("⚠️ Error: Cycles must be greater than 0.")
+                            print("[!] Error: Cycles must be greater than 0.")
                             continue
                         break
                     except ValueError:
-                        print("⚠️ Error: Invalid number format. Please enter an integer.")
+                        print("[!] Error: Invalid number format. Please enter an integer.")
 
                 # DCA Calculation
                 total_invested = amount * duration_cycles
@@ -190,8 +210,8 @@ def run_trading_mind_agent():
                 print(f"{'Projected Portfolio':<24} : ${current_portfolio_value:,.2f}")
                 print(f"{'Estimated ROI (Sim)':<24} : +{roi_percentage:.2f}%")
             
-            # Export Report Option (Fixed Timestamp)
-            save_log = input("\n> Export this complete analysis report to a JSON log file? (y/n): ").strip().lower()
+            # Export Report Option (JSON)
+            save_log = input("\n* Export this complete analysis report to a JSON log file? (y/n): ").strip().lower()
             if save_log == 'y':
                 current_time_str = datetime.datetime.now(datetime.timezone.utc).isoformat()
                 report_data = {
@@ -217,12 +237,47 @@ def run_trading_mind_agent():
                 filename = f"trading_mind_{display_symbol}_report.json"
                 with open(filename, "w") as f:
                     json.dump(report_data, f, indent=4)
-                print(f"> Report successfully saved to '{filename}'!")
+                print(f"[OK] Report successfully saved to '{filename}'!")
 
-            print(f"\n* Protocol Status    : Verified & Executed via Trading Mind Core.")
-            print(f"* Disclaimer         : AI insights & trading setups are for simulation purposes only.")
+            # Telegram Dispatcher Integration
+            send_tg = input("\n* Dispatch this report to your Telegram Bot? (y/n): ").strip().lower()
+            if send_tg == 'y':
+                bot_token = input("Enter Telegram Bot Token: ").strip()
+                chat_id = input("Enter Telegram Chat ID: ").strip()
+                
+                if bot_token and chat_id:
+                    tg_message = (
+                        f"🧠 *TRADING MIND INTELLIGENCE REPORT: {symbol}*\n\n"
+                        f"💰 *Current Price*: ${price:,.2f}\n"
+                        f"📊 *24h Change*: {price_change:+.2f}%\n"
+                        f"🌊 *Volatility*: {price_range_pct:.2f}%\n\n"
+                        f"🔮 *Sentiment*: {sentiment}\n"
+                        f"🎯 *Entry Zone*: {entry_zone}\n"
+                        f"🏆 *Take Profit*: {tp_zone}\n"
+                        f"🛡️ *Stop Loss*: {sl_zone}\n"
+                    )
+                    if dca_results:
+                        tg_message += (
+                            f"\n🔄 *DCA Plan*: Every {dca_results['frequency']} "
+                            f"(${dca_results['amount_per_session']} x {dca_results['cycles']} cycles)\n"
+                            f"💼 *Projected Portfolio*: ${dca_results['projected_portfolio_value']:,.2f} "
+                            f"(+{dca_results['estimated_roi_pct']:.2f}%)\n"
+                        )
+                    tg_message += "\n_Verified & Executed via Trading Mind Core._"
+                    
+                    print("[+] Sending dispatch to Telegram network...")
+                    success = send_telegram_alert(bot_token, chat_id, tg_message)
+                    if success:
+                        print("[OK] Report successfully dispatched to your Telegram chat!")
+                    else:
+                        print("[!] Failed to send. Please verify your Bot Token and Chat ID.")
+                else:
+                    print("[!] Skipped: Token or Chat ID was empty.")
+
+            print(f"\n[STATUS] Protocol Status : Verified & Executed via Trading Mind Core.")
+            print(f"[NOTE]   Disclaimer      : AI insights & trading setups are for simulation purposes only.")
         else:
-            print(f"⚠️ Warning            : Unable to fetch data for '{symbol}'. Check symbol name.")
+            print(f"[!] Warning             : Unable to fetch data for '{symbol}'. Check symbol name.")
             
         print("--------------------------------------------------\n")
 
