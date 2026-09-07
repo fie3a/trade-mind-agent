@@ -1,60 +1,48 @@
-# 🧠 Trading Mind Agent (AI Intelligence & Telegram Dispatcher)
+# 🤖• Trading Mind Agent
 
-> *An enterprise-grade, terminal-based AI market intelligence and risk assessment agent built for the Binance Agent OS Hackathon.*
+> AI Market Intelligence & Telegram Dispatcher Matrix.
 
 ---
 
 ## 🚀 Overview
-Trading Mind Agent is a command-line interface (CLI) tool designed for crypto traders and developers. It hooks directly into live Binance market data streams via Python's standard libraries (urllib) to deliver deep technical sentiment analysis, automated risk management metrics, custom DCA (Dollar-Cost Averaging) simulations, and an instant Telegram Dispatcher for mobile alerts.
+• Trading Mind Agent is an advanced, lightweight Streamlit-based dashboard designed to fetch real-time crypto market data (via Binance & CoinGecko APIs), calculate technical indicators and optimal DCA (Dollar-Cost Averaging) simulations, and instantly dispatch structured strategy alerts to Telegram bots or channels.
 
 ---
 
 ## ✨ Key Features
-
-1. Live Market Intelligence:
-   - Fetches 24-hour ticker data, price volatility spreads, and volume metrics directly from Binance public APIs.
-2. AI Sentiment & Risk Assessment:
-   - Automatically categorizes market behavior into Bullish, Bearish, or Neutral structures.
-   - Computes dynamic Entry zones, Take Profit (TP), and Stop Loss (SL) targets.
-3. Custom DCA Simulation Engine:
-   - Interactive calculation module for tailored accumulation strategies (Daily, Weekly, Monthly) complete with projected portfolio ROI.
-4. Telegram Alert Dispatcher :
-   - Instantly dispatches comprehensive intelligence reports and DCA simulations directly to your Telegram chat or mobile device via secure runtime inputs (zero hardcoded credentials).
-5. JSON Data Export:
-   - Archives complete analysis sessions into structured local logs for backtesting and record-keeping.
+- Real-Time Price Feeds: Multi-endpoint fallback architecture ensuring reliable live asset pricing (BTC, ETH, SOL, BNB, etc.).
+- Custom Neon SVG Charts: High-performance, responsive price trend visualization styled with sleek cyberpunk aesthetics.
+- Automated DCA Calculator: Comprehensive simulation tracking periodic capital commitment, duration cycles, and estimated asset accumulation.
+- Telegram Dispatcher Matrix: One-click automated formatting and transmission of actionable trading signals (Entry, TP, SL, and DCA plans) directly via Telegram Bot API.
 
 ---
 
-## 🛠️ Technical Stack & Standards
-- Language: Python 3.x (Pure standard library implementation: urllib, json, datetime, time, sys).
-- Architecture: Lightweight, dependency-free CLI design ensuring cross-platform stability (Windows, macOS, Linux).
-- Security: Runtime-only credential injection for Telegram Bot Tokens to guarantee 100% safety in public GitHub repositories.
+## 🛠️ Tech Stack
+- Frontend / Dashboard: [Streamlit](https://streamlit.io/) & Custom HTML/SVG components.
+- Data Sources: Binance REST API & CoinGecko API.
+- Notifications: Telegram Bot API (requests / urllib).
+- Language: Python 3.10+
 
 ---
 
-## 📦 Installation & Quick Start
+## ⚙️ Quick Start / Local Installation
 
-1. Clone the Repository:
+1. Clone the repository:
    ```bash
    git clone https://github.com/fie3a/trade-mind-agent.git
-   cd trading-mind-agent
+   cd trade-mind-agent
    ```
-2. Run the Agent
+2. Install dependencies
    ```bash
-   python main.py
+   pip install -r requirements.txt
    ```
-3. Interactive Flow:
-​> Enter the target asset symbol (e.g., BTC, ETH).
-
-​> Review the generated AI intelligence and risk report.
-
-​> Configure your custom DCA strategy parameters.
-
-​> Choose to export as a JSON log and/or dispatch the report directly to your Telegram bot in real-time.
-
-## Hackathon Submission Details
-Project: Binance Agent OS Hackathon
-
-Developer: fie3a
-
-Security Note: Designed with clean architecture, strict input validation loops, and absolute avoidance of hardcoded API secrets.
+3. Run the Streamlit app
+   ```bash
+   streamlit run app.py
+   ```
+   
+ ## 📲 How to Use
+1. Enter your target trading pair (e.g., BTCUSDT, ETHUSDT, BNBUSDT) in the sidebar.
+2. Set your DCA parameters (amount, interval type, cycles) and analysis timeframe.
+3. Input your Telegram Bot Token and Chat ID (optional, for live signal pushing).
+4. Click "Run Analysis & Push to Telegram" to generate live metrics, charts, and automated dispatch logs.
